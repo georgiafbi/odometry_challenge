@@ -1,4 +1,4 @@
-Cumulative Δt (s),Left Wheel Velocities (m/s),Right Wheel Velocities (m/s),Left ΔS (m),Right ΔS (m),"Position (x,y,Θ)",X Coordinates (m),Y Coordinates (m),ΔΘ Cumulative Sum (radians),ΔΘ (radians),Δt (s),Δ𝑠 (m),Cumulative Δ𝑠 (m),Cumulative Left ΔS (m),Cumulative Right ΔS (m),ΔX (m),ΔY (m)
+Cumulative Δt (s),Left Wheel Velocities (m/s),Right Wheel Velocities (m/s),Left ΔS (m),Right ΔS (m),"Position (x,y,Θ)",X Coordinates (m),Y Coordinates (m),ΔΘ Cumulative Sum (radians),ΔΘ (radians),Δt (s),ΔS (m),Cumulative ΔS (m),Cumulative Left ΔS (m),Cumulative Right ΔS (m),ΔX (m),ΔY (m)
 0.0,0.0,0.0,0.0,0.0,"(0.0, 0.0, 0.0)",0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 0.5,0.2,0.2,0.1,0.1,"(0.005, 0.0, 0.0)",0.005,0.0,0.0,0.0,0.5,0.005,0.005,0.1,0.1,0.005,0.0
 1.0,0.2,0.2,0.1,0.1,"(0.01, 0.0, 0.0)",0.01,0.0,0.0,0.0,0.5,0.005,0.01,0.2,0.2,0.005,0.0
