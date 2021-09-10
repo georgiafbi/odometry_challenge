@@ -110,13 +110,13 @@ class differential_drive_robot():
             deltaTheta = (dispR-dispL)/robW
             
             tot_theta = current_theta+(deltaTheta/2)
-            delta_theta_list.append(tot_theta)
+            delta_theta_list.append(current_theta+deltaTheta)
+            
             current_theta = tot_theta
-
             # calculating x and y coordinates
             delta_x.append(deltaDisp * math.cos(tot_theta))
             delta_y.append(deltaDisp*math.sin(tot_theta))
-
+            
             sampling_time.append(dTime)
 
         # cumulative sum of time
@@ -128,7 +128,7 @@ class differential_drive_robot():
         coord_y = np.cumsum(delta_y).tolist()
 
         # cumulative sum of delta_theta_list
-        delta_theta_cumsum = np.cumsum(delta_theta_list).tolist()
+        #delta_theta_cumsum = np.cumsum(delta_theta_list).tolist()
         for i in range(len(coord_x)):
             positions.append((round(coord_x[i], 3), round(
                 coord_y[i], 3), round(delta_theta_list[i], 3)))
@@ -139,9 +139,7 @@ class differential_drive_robot():
         data = {"Cumulative Δt (s)": sum_time, "Left Wheel Velocities (m/s)": velocity_l, "Right Wheel Velocities (m/s)": velocity_r,
                 "Left ΔS (m)": displacement_l, "Right ΔS (m)": displacement_r,
                 "X Coordinates (m)": coord_x, "Y Coordinates (m)": coord_y,
-                "Θ (radians)": delta_theta_list,
-                "Θ Cumulative Sum (radians)": delta_theta_cumsum,
-                "Δt (s)": sampling_time,
+                "Θ+ΔΘ (radians)": delta_theta_list,
                 "ΔS (m)": deltaS, "Cumulative ΔS (m)": cum_disp,
                 "Cumulative Left ΔS (m)": np.cumsum(displacement_l).tolist(),
                 "Cumulative Right ΔS (m)": np.cumsum(displacement_r).tolist(),
@@ -151,13 +149,13 @@ class differential_drive_robot():
         data_rounded = {key: [round(i, 3) for i in data[key]] for key in data}
         
         #updates data_rounded with new data called positions (x,y,Θ)
-        data_rounded["Position (x,y,Θ)"] = positions
+        data_rounded["Position (x,y,Θ+ΔΘ)"] = positions
         
         #creates a pandas DataFrame called df using the dictionary data_rounded
         df = pd.DataFrame(data_rounded)
         df = df.reindex(columns=["Cumulative Δt (s)", 'Left Wheel Velocities (m/s)',
-                                 'Right Wheel Velocities (m/s)', 'Left ΔS (m)', 'Right ΔS (m)', "Position (x,y,Θ)",
-                                 'X Coordinates (m)', 'Y Coordinates (m)', 'Θ (radians)',"Θ Cumulative Sum (radians)", 'Δt (s)',
+                                 'Right Wheel Velocities (m/s)', 'Left ΔS (m)', 'Right ΔS (m)', "Position (x,y,Θ+ΔΘ)",
+                                 'X Coordinates (m)', 'Y Coordinates (m)', 'Θ+ΔΘ (radians)',
                                  'ΔS (m)', 'Cumulative ΔS (m)', 'Cumulative Left ΔS (m)',
                                  'Cumulative Right ΔS (m)', 'ΔX (m)', 'ΔY (m)'])
         df = df.set_index("Cumulative Δt (s)")
@@ -198,11 +196,11 @@ class differential_drive_robot():
         
         #line plot of the change in the robot objects orientation over time
         l2, = ax2.plot(o_df["Cumulative Δt (s)"],
-                       o_df["Θ (radians)"], "o-.", c="red", label="Θ")
-        ax2.set_title("ΔΘ Over Time (radians)")
-        ax2.set_ylabel("Θ (radians)")
+                       o_df["Θ+ΔΘ (radians)"], "o-.", c="red", label="Θ+ΔΘ")
+        ax2.set_title("Θ+ΔΘ Over Time (radians)")
+        ax2.set_ylabel("Θ+ΔΘ (radians)")
         ax2.set_xlabel("time (s)")
-        ax2.legend(loc="upper right")
+        ax2.legend(loc="lower right")
         
         #line plot of the left and right wheel velocities over time
         ax3.plot(o_df["Cumulative Δt (s)"], o_df["Left Wheel Velocities (m/s)"],
@@ -232,8 +230,7 @@ class differential_drive_robot():
 if __name__ == '__main__':
     '''main'''
     #creates robot object from the class differential_drive_robot
-    mobile_robot = differential_drive_robot(
-        omega_l, omega_r, robot_width, wheel_radius, init_pos, delta_time)
+    mobile_robot = differential_drive_robot(omega_l, omega_r, robot_width, wheel_radius, init_pos, delta_time)
     
 #calls the attribute, odometry_data, of differenital_drive_robot object, mobile_robot, and stores it in a pandas DataFrame called mobile_robot_df
 mobile_robot_df = mobile_robot.odometry_data
