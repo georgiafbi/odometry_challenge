@@ -112,7 +112,7 @@ class differential_drive_robot():
             tot_theta = current_theta+(deltaTheta/2)
             delta_theta_list.append(current_theta+deltaTheta)
             
-            current_theta = tot_theta
+            current_theta = current_theta+deltaTheta
             # calculating x and y coordinates
             delta_x.append(deltaDisp * math.cos(tot_theta))
             delta_y.append(deltaDisp*math.sin(tot_theta))
