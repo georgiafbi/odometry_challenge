@@ -103,7 +103,7 @@ class differential_drive_robot():
             displacement_r.append(velR*dTime)
 
             # calculating total displacement of the robot
-            deltaDisp = (dispL*dispR)/2
+            deltaDisp = (dispL+dispR)/2
             deltaS.append(deltaDisp)
 
             # calculating the change in theta
@@ -148,7 +148,7 @@ class differential_drive_robot():
         #rounds data within dictionary to 3 decimal points and stores it into a new variable called data_rounded
         data_rounded = {key: [round(i, 3) for i in data[key]] for key in data}
         
-        #updates data_rounded with new data called positions (x,y,Θ)
+        #updates data_rounded with new data called positions (x,y,Θ+ΔΘ)
         data_rounded["Position (x,y,Θ+ΔΘ)"] = positions
         
         #creates a pandas DataFrame called df using the dictionary data_rounded
