@@ -1,11 +1,11 @@
 # odometry_challenge
-# homework #2
+
 Odometry of a Differential Drive Robot
 
 This application will calculate the odometry of a differenital drive robot given: left and right wheel encoder readings, robot initial position, robot width, and wheel radius.
 
-MTRE 6100, Homework #2 
-(Due Friday, September/10/2021) 
+MTRE 6100, Odometry Challenge
+(Friday, September/10/2021) 
  
 Please use Python to create a program that calculates the odometry of a different drive 
 robot based on the measurements of its encoder sensors. To understand the concepts and 
@@ -44,6 +44,4 @@ is the 2 rad/s. (Equation Δ𝑠!= θ! Δ𝑡 ).
 Your program should output the above 3 results in a step-by-step way. For example, 
 you should output 𝜗!, 𝜗" , Δ𝑠!, Δ𝑠", and 𝑃$ for the first step.  
  
-Deliverable: 
-1. A Simple report with all your program outputs. 
-2. Your codes
+
